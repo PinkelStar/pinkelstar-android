@@ -1,0 +1,9 @@
+ChangeLog
+
+v0.0.2 - 2010 July 30
+
+- Initial version released
+- Authenticating and revoking networks
+- Posting messages
+- Image Cache for application and network icons (many thanks to jteam.nl)
+

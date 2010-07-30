@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name"></string>
+    <string name="app_key"></string>
+    <string name="app_secret"></string>
+    <string name="settings">Settings</string>
+    <string name="nosettings">Could not load settings!</string>
+    <string name="waitforsettings">Please wait for settings to load</string>
+    <string name="selectnetwork">Please select a network</string>
+    <string name="settingstitle">Enable/disable social networks</string>
+    <string name="posting">Posting message..</string>
+    <string name="posted">Message posted!</string>
+    <string name="couldnotpost">Could not post message!</string>
+    <string name="revoking">Revoking network..</string>
+    <string name="revoked">Network revoked!</string>
+    <string name="couldnotrevoke">Could not revoke network!</string>
+</resources>
