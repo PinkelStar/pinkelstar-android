@@ -89,6 +89,7 @@ public final class R {
         public static final int nosettings=0x7f040004;
         public static final int posted=0x7f040009;
         public static final int posting=0x7f040008;
+        public static final int preloadimages=0x7f04000e;
         public static final int revoked=0x7f04000c;
         public static final int revoking=0x7f04000b;
         public static final int selectnetwork=0x7f040006;
