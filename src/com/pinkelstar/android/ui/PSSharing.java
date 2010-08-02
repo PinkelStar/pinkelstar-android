@@ -73,6 +73,7 @@ public class PSSharing extends Activity {
 	private EditText message;
 	private Button publish;
 	private TextView devmsg;
+	private String contentUrl;
 	private ToggleButton[] buttons;
 	private Server psServer;
 	private Handler mHandler;
@@ -90,8 +91,14 @@ public class PSSharing extends Activity {
 
 		devmsg = (TextView) findViewById(R.id.iconmsg);
 		Intent intent = getIntent();
-		if (intent != null && intent.getStringExtra("devmsg") != null)
-			devmsg.setText(intent.getStringExtra("devmsg"));
+		if (intent != null) {
+			if (intent.getStringExtra("devmsg") != null) {
+				devmsg.setText(intent.getStringExtra("devmsg"));
+			}
+			if (intent.getStringExtra("contenturl") != null) {
+				contentUrl = intent.getStringExtra("contenturl");
+			}
+		}
 
 		publish = (Button) findViewById(R.id.publishbutton);
 		publish.setOnClickListener(new OnClickListener() {
@@ -100,7 +107,6 @@ public class PSSharing extends Activity {
 			}
 		});
 		message = (EditText) findViewById(R.id.message);
-
 	}
 
 	@Override
@@ -224,7 +230,7 @@ public class PSSharing extends Activity {
 			return;
 
 		String networks = TextUtils.join(",", selectedNetworks);
-		new PostTask(this.psServer, this).execute(networks, message.getText().toString(), devmsg.getText().toString());
+		new PostTask(this.psServer, this).execute(networks, message.getText().toString(), devmsg.getText().toString(), contentUrl);
 	}
 
 	private String[] selectedNetworks() {
