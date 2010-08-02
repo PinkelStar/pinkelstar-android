@@ -1,5 +1,10 @@
 ChangeLog
 
+v0.1.0 - 2010 August 02
+
+- Updated server lib and PSSharing to allow for links to websites to be included in the sharing process
+
+
 v0.0.2 - 2010 July 30
 
 - Initial version released
