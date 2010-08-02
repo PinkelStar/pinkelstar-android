@@ -58,6 +58,7 @@ Steps for setting up your first Pinkelstar enabled Android app :
 		
 	- replace `ACTIVITYCLASSNAME` with your default activity.
 	- set an appropriate developer message in the intent.
+	- set an appropriate content url in the intent. (optional)
 
 - Add the Pinkelstar UI project as an Android library:
 	- Import the UI project from the zip file into your workspace. Make sure that the project name does not have dashes, underscores, periods or spaces. 
