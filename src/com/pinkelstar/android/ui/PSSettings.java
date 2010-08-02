@@ -112,7 +112,6 @@ public class PSSettings extends Activity {
 		String imageUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
 
 		app.getPinkelstarImageCache().loadDrawable(imageUrl, new ImageCallback() {
-			@Override
 			public void setDrawable(Drawable d) {
 				iv.setImageDrawable(d);
 			}

@@ -162,7 +162,6 @@ public class PSSharing extends Activity {
 	private void checkboxes() {
 		PSApplicationState app = (PSApplicationState) getApplication();
 		app.getPinkelstarImageCache().loadDrawable(psServer.getIconUrl(), new ImageCallback() {
-			@Override
 			public void setDrawable(Drawable d) {
 				ImageView iv = (ImageView) findViewById(R.id.iconimg);
 				iv.setImageDrawable(d);
