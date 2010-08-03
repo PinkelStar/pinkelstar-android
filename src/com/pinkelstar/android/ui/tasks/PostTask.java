@@ -9,11 +9,9 @@ import com.pinkelstar.android.ui.PSSharing;
 
 public class PostTask extends AsyncTask<String, Void, Boolean> {
 
-	private Server psServer;
 	private PSSharing sharing;
 	
-	public PostTask(Server server, PSSharing sharing) {
-		this.psServer = server;
+	public PostTask(PSSharing sharing) {
 		this.sharing = sharing;
 	}
 	
@@ -25,7 +23,7 @@ public class PostTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... params) {
 		String[] networks = params[0].split(",");
-		boolean b = psServer.publishMessage(networks, params[1], params[2], params[3]);
+		boolean b = Server.getInstance().publishMessage(networks, params[1], params[2], params[3]);
 
 		return new Boolean(b);
 	}

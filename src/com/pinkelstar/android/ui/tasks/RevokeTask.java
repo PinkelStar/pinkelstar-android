@@ -10,11 +10,9 @@ import com.pinkelstar.android.ui.PSSettings;
 public class RevokeTask extends AsyncTask<String, Void, Boolean> {
 	String networkname;
 
-	private Server psServer;
 	private PSSettings psSettings;
 	
-	public RevokeTask(Server server, PSSettings settings) {
-		this.psServer = server;
+	public RevokeTask(PSSettings settings) {
 		this.psSettings = settings;
 	}
 	
@@ -26,7 +24,7 @@ public class RevokeTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... params) {
 		networkname = params[0];
-		boolean b = psServer.removeNetwork(networkname);
+		boolean b = Server.getInstance().removeNetwork(networkname);
 		return new Boolean(b);
 	}
 

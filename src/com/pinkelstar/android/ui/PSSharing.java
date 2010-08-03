@@ -75,7 +75,6 @@ public class PSSharing extends Activity {
 	private TextView devmsg;
 	private String contentUrl;
 	private ToggleButton[] buttons;
-	private Server psServer;
 	private Handler mHandler;
 
 	@Override
@@ -83,7 +82,6 @@ public class PSSharing extends Activity {
 		super.onCreate(savedInstanceState);
 
 		PSApplicationState app = (PSApplicationState) getApplication();
-		this.psServer = app.getPinkelstarServer();
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.pssharing);
@@ -111,7 +109,7 @@ public class PSSharing extends Activity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		if (psServer.getState() == Server.STATE_INITIALIZED) {
+		if (Server.getInstance().getState() == Server.STATE_INITIALIZED) {
 			boolean[] states = new boolean[buttons.length];
 			for (int i = 0; i < states.length; i++) {
 				states[i] = buttons[i].isChecked();
@@ -122,7 +120,7 @@ public class PSSharing extends Activity {
 	}
 
 	private void setupNetworkCheckboxes(Bundle savedInstanceState) {
-		if (psServer.getState() != Server.STATE_INITIALIZED) {
+		if (Server.getInstance().getState() != Server.STATE_INITIALIZED) {
 			mHandler = new Handler();
 			MyTimerTask mtt = new MyTimerTask();
 			mHandler.removeCallbacks(mtt);
@@ -161,18 +159,18 @@ public class PSSharing extends Activity {
 
 	private void checkboxes() {
 		PSApplicationState app = (PSApplicationState) getApplication();
-		app.getPinkelstarImageCache().loadDrawable(psServer.getIconUrl(), new ImageCallback() {
+		app.getPinkelstarImageCache().loadDrawable(Server.getInstance().getIconUrl(), new ImageCallback() {
 			public void setDrawable(Drawable d) {
 				ImageView iv = (ImageView) findViewById(R.id.iconimg);
 				iv.setImageDrawable(d);
 			}
 		});
 
-		if (psServer.getState() != Server.STATE_INITIALIZED) {
+		if (Server.getInstance().getState() != Server.STATE_INITIALIZED) {
 			return;
 		}
 
-		buttons = new ToggleButton[psServer.getKnownNetworks().length];
+		buttons = new ToggleButton[Server.getInstance().getKnownNetworks().length];
 		LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayout01);
 		ll.removeAllViews();
 		for (int i = 0; i < buttons.length; i++) {
@@ -186,7 +184,7 @@ public class PSSharing extends Activity {
 	private ToggleButton createButton(int i) {
 		final ToggleButton tb = new ToggleButton(PSSharing.this);
 		PSApplicationState app = (PSApplicationState) getApplication();
-		String networkName = psServer.getKnownNetworks()[i];
+		String networkName = Server.getInstance().getKnownNetworks()[i];
 		String imageUrl = Utils.buildImageUrl(networkName, Constants.LARGE_IMAGES);
 		tb.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.placeholder_button_icon, 0, 0);
 
@@ -201,7 +199,7 @@ public class PSSharing extends Activity {
 		tb.setTextOff(networkName);
 		tb.setTextColor(Color.WHITE);
 		tb.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-		tb.setChecked(psServer.isNetworkAuthenticated(networkName));
+		tb.setChecked(Server.getInstance().isNetworkAuthenticated(networkName));
 
 		return tb;
 	}
@@ -212,7 +210,7 @@ public class PSSharing extends Activity {
 	 * multiple networks need to be authenticated
 	 */
 	private void publish() {
-		if (psServer.getState() != Server.STATE_INITIALIZED) {
+		if (Server.getInstance().getState() != Server.STATE_INITIALIZED) {
 			Toast.makeText(PSSharing.this, R.string.waitforsettings, Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -229,14 +227,14 @@ public class PSSharing extends Activity {
 			return;
 
 		String networks = TextUtils.join(",", selectedNetworks);
-		new PostTask(this.psServer, this).execute(networks, message.getText().toString(), devmsg.getText().toString(), contentUrl);
+		new PostTask(this).execute(networks, message.getText().toString(), devmsg.getText().toString(), contentUrl);
 	}
 
 	private String[] selectedNetworks() {
 		ArrayList<String> selectedNetworks = new ArrayList<String>();
-		for (int i = 0; i < psServer.getKnownNetworks().length; i++) {
+		for (int i = 0; i < Server.getInstance().getKnownNetworks().length; i++) {
 			if (buttons[i].isChecked()) {
-				selectedNetworks.add(psServer.getKnownNetworks()[i]);
+				selectedNetworks.add(Server.getInstance().getKnownNetworks()[i]);
 			}
 		}
 		return selectedNetworks.toArray(new String[selectedNetworks.size()]);
@@ -244,8 +242,8 @@ public class PSSharing extends Activity {
 
 	private boolean authenticateNetworks(String[] networks) {
 		for (String networkName : networks) {
-			if (!psServer.isNetworkAuthenticated(networkName)) {
-				psServer.startAuth(this, networkName);
+			if (!Server.getInstance().isNetworkAuthenticated(networkName)) {
+				Server.getInstance().startAuth(this, networkName);
 				return false;
 			}
 		}
@@ -260,7 +258,7 @@ public class PSSharing extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (psServer.getState() == Server.STATE_INITIALIZED) {
+		if (Server.getInstance().getState() == Server.STATE_INITIALIZED) {
 			startActivity(new Intent(PSSharing.this, PSSettings.class));
 		} else {
 			Toast.makeText(PSSharing.this, R.string.waitforsettings, Toast.LENGTH_SHORT).show();
@@ -270,7 +268,7 @@ public class PSSharing extends Activity {
 
 	private void preloadSmallNetworkImages() {
 		PSApplicationState app = (PSApplicationState) getApplication();
-		for (String networkName : psServer.getKnownNetworks()) {
+		for (String networkName : Server.getInstance().getKnownNetworks()) {
 			String networkUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
 			app.getPinkelstarImageCache().preloadDrawable(networkUrl);
 		}
@@ -289,7 +287,7 @@ public class PSSharing extends Activity {
 	public class MyTimerTask extends TimerTask {
 		@Override
 		public void run() {
-			switch (psServer.getState()) {
+			switch (Server.getInstance().getState()) {
 			case Server.STATE_INITIALIZED:
 				mHandler.removeCallbacks(this);
 				setupNetworkCheckboxes(null);

@@ -8,19 +8,21 @@ import com.pinkelstar.android.ui.tasks.SessionTask;
 
 public class PSApplication extends Application implements PSApplicationState {
 
-	private Server psServer;
+//	private Server psServer;
 	private ImageCache imageCache;
 	
 	public void onCreate() {
-		psServer = new Server((Application) this, getString(R.string.app_key), getString(R.string.app_secret));
+		Server.initialize((Application) this, getString(R.string.app_key), getString(R.string.app_secret));
+		
+		//psServer = new Server((Application) this, getString(R.string.app_key), getString(R.string.app_secret));
 		imageCache  = new ImageCache();
 		
-		SessionTask.initialize(psServer, imageCache, getString(R.string.preloadimages));
+		SessionTask.initialize(imageCache, getString(R.string.preloadimages));
 	}
 
-	public Server getPinkelstarServer() {
-		return this.psServer;
-	}
+//	public Server getPinkelstarServer() {
+//		return this.psServer;
+//	}
 
 	public ImageCache getPinkelstarImageCache() {
 		return this.imageCache;

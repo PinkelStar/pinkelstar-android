@@ -7,30 +7,28 @@ import com.pinkelstar.android.ui.ImageCache;
 
 public class SessionTask extends AsyncTask<Void, Void, Void> {
 	
-	private Server server;
 	private ImageCache imageCache;
 	private String preloadImages;
 	
-	public SessionTask(Server server, ImageCache imageCache, String preloadImages) {
-		this.server = server;
+	public SessionTask(ImageCache imageCache, String preloadImages) {
 		this.imageCache = imageCache;
 		this.preloadImages = preloadImages;
 	}
 	
 	@Override
 	protected Void doInBackground(Void... params) {
-		server.initPS();
+		Server.getInstance().initPS();
 		return null;
 	}
 	
-	public static void initialize(Server server, ImageCache imageCache, String preloadImages) {
-		SessionTask st = new SessionTask(server, imageCache, preloadImages);
+	public static void initialize(ImageCache imageCache, String preloadImages) {
+		SessionTask st = new SessionTask(imageCache, preloadImages);
 		st.execute();
 	}
 	
 	protected void onPostExecute(Void result) {
 		if(this.preloadImages.equals("true")) {
-			ImagePreloaderTask.initialize(server, imageCache);
+			ImagePreloaderTask.initialize(imageCache);
 		}
 	}
 	
