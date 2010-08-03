@@ -45,13 +45,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Window;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.RelativeLayout.LayoutParams;
 
 import com.pinkelstar.android.server.Constants;
 import com.pinkelstar.android.server.Server;
