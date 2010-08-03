@@ -1,7 +1,9 @@
 ChangeLog
+---------
 
 v0.1.0 - 2010 August 02
 
+- Added preloading of required images to the startup
 - Updated server lib and PSSharing to allow for links to websites to be included in the sharing process
 
 
