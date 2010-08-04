@@ -14,7 +14,7 @@ public class ImageCache {
 	
 	private static ImageCache instance = null;
 	
-	private HashMap<String, SoftReference<Drawable>> cache;
+	private HashMap<String, SoftReference<Drawable>> cache = null;
 
 	private ImageCache() {
 		cache = new HashMap<String, SoftReference<Drawable>>();
@@ -52,7 +52,7 @@ public class ImageCache {
 		try {
 			drawable = Drawable.createFromStream(new URL(url).openStream(), "src");
 		} catch (Exception e) {
-			Log.d("Pinkelstar", "could not get image from "+url+" "+e.toString());
+			Log.d("PinkelStar", "could not get image from " + url + " " +e.toString());
 			drawable = null;
 		}
 

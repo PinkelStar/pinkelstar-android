@@ -90,11 +90,11 @@ public class PSSharing extends Activity {
 		developerMessage = (TextView) findViewById(R.id.iconmsg);
 		Intent intent = getIntent();
 		if (intent != null) {
-			if (intent.getStringExtra("devmsg") != null) {
-				developerMessage.setText(intent.getStringExtra("devmsg"));
+			if (intent.getStringExtra("developerMessage") != null) {
+				developerMessage.setText(intent.getStringExtra("developerMessage"));
 			}
-			if (intent.getStringExtra("contenturl") != null) {
-				contentUrl = intent.getStringExtra("contenturl");
+			if (intent.getStringExtra("contentUrl") != null) {
+				contentUrl = intent.getStringExtra("contentUrl");
 			}
 		}
 
