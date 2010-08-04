@@ -5,8 +5,8 @@ import android.app.Application;
 
 import com.pinkelstar.android.server.PinkelstarStatable;
 import com.pinkelstar.android.server.Server;
-import com.pinkelstar.android.server.Settings;
 import com.pinkelstar.android.ui.tasks.SessionTask;
+import com.pinkelstar.android.ui.util.Settings;
 
 public class PSApplication extends Application implements PinkelstarStatable {
 

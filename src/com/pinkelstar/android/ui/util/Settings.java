@@ -76,21 +76,17 @@ public final class Settings {
 		try {
 			int eventType = parser.getEventType();
 
+			String currentTag = null;
 			while (eventType != XmlPullParser.END_DOCUMENT) {
-				String name = null;
 				switch (eventType){
-	            	case XmlPullParser.START_TAG:
-	            		name = parser.getName().toLowerCase();
-	            		if (name.equals("applicationkey")) {
-	            			KEY = parser.getText();
-	            		} else if (name.equals("applicationsecret")) {
-	            			SECRET = parser.getText();
-	            		} else if (name.equals("preloadimages")) {
-	            			PRELOAD_IMAGES = parser.getText().equals("true");
-	            		}
+					case XmlPullParser.START_TAG:
+						currentTag = parser.getName().toLowerCase();
+						break;
+	            	case XmlPullParser.TEXT:
+	            		parseKeyValue(currentTag, parser.getText());
 	            		break;
 	            	case XmlPullParser.END_TAG:
-	            		name = parser.getName();
+	            		currentTag = null;
 	            		break;
 				}
 				eventType = parser.next();
@@ -102,6 +98,21 @@ public final class Settings {
 			throw new RuntimeException("Cannot parse PinkelStar settings XML");
 		} finally {
 			parser.close();
+		}
+	}
+
+	private void parseKeyValue(String currentTag, String value) {
+		if(currentTag == null || currentTag.equals("settings"))
+			return;
+		
+		if (currentTag.equals("key")) {
+			KEY = value;
+		} else if (currentTag.equals("secret")) {
+			SECRET = value;
+		} else if (currentTag.equals("preloadimages")) {
+			PRELOAD_IMAGES = value.equals("true");
+		} else {
+			throw new RuntimeException("Settings Tag not recognized : " + currentTag);
 		}
 	}
 }
