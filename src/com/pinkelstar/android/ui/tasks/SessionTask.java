@@ -1,37 +1,47 @@
 package com.pinkelstar.android.ui.tasks;
 
+import pinkelstar.android.R;
+import android.app.Application;
 import android.os.AsyncTask;
 
 import com.pinkelstar.android.server.Server;
-import com.pinkelstar.android.ui.ImageCache;
+import com.pinkelstar.android.ui.util.Settings;
 
 public class SessionTask extends AsyncTask<Void, Void, Void> {
 	
-	private Server server;
-	private ImageCache imageCache;
-	private String preloadImages;
+	private Application application;
+	private String key;
+	private String secret;
+	private boolean preloadImages;
 	
-	public SessionTask(Server server, ImageCache imageCache, String preloadImages) {
-		this.server = server;
-		this.imageCache = imageCache;
+	public SessionTask(Application application, String key, String secret, boolean preloadImages) {
+		this.application = application;
+		this.key = key;
+		this.secret = secret;
 		this.preloadImages = preloadImages;
+	}
+	
+	public static void initialize(Application application) {
+		Settings settings = Settings.getInstance();
+		settings.loadSettingsFromXml(application.getResources().getXml(R.xml.pinkelstar));
+		
+		initialize(application, Settings.key(), Settings.secret(), Settings.preloadImages());
+	}
+
+	public static void initialize(Application application, String key, String secret, boolean preloadImages) {
+		SessionTask st = new SessionTask(application, key, secret, preloadImages);
+		st.execute();
 	}
 	
 	@Override
 	protected Void doInBackground(Void... params) {
-		server.initPS();
+		Server.initialize(application, key, secret);
 		return null;
 	}
 	
-	public static void initialize(Server server, ImageCache imageCache, String preloadImages) {
-		SessionTask st = new SessionTask(server, imageCache, preloadImages);
-		st.execute();
-	}
-	
 	protected void onPostExecute(Void result) {
-		if(this.preloadImages.equals("true")) {
-			ImagePreloaderTask.initialize(server, imageCache);
+		if(this.preloadImages) {
+			ImagePreloaderTask.initialize();
 		}
 	}
-	
 }
