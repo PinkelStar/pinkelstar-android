@@ -11,10 +11,24 @@ import android.util.Log;
 import com.pinkelstar.android.ui.tasks.ImageTask;
 
 public class ImageCache {
+	
+	private static ImageCache instance = null;
+	
 	private HashMap<String, SoftReference<Drawable>> cache;
 
-	public ImageCache() {
+	private ImageCache() {
 		cache = new HashMap<String, SoftReference<Drawable>>();
+	}
+
+	public static synchronized ImageCache getInstance() {
+		if(instance == null) {
+			instance = new ImageCache();
+	    }
+	    return instance;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		throw new CloneNotSupportedException();
 	}
 
 	public void preloadDrawable(String url) {
