@@ -81,21 +81,18 @@ public final class R {
         public static final int pssharing=0x7f030001;
     }
     public static final class string {
-        public static final int app_key=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int app_secret=0x7f050002;
-        public static final int couldnotpost=0x7f05000a;
-        public static final int couldnotrevoke=0x7f05000d;
-        public static final int nosettings=0x7f050004;
-        public static final int posted=0x7f050009;
-        public static final int posting=0x7f050008;
-        public static final int preloadimages=0x7f05000e;
-        public static final int revoked=0x7f05000c;
-        public static final int revoking=0x7f05000b;
-        public static final int selectnetwork=0x7f050006;
-        public static final int settings=0x7f050003;
-        public static final int settingstitle=0x7f050007;
-        public static final int waitforsettings=0x7f050005;
+        public static final int couldnotpost=0x7f050007;
+        public static final int couldnotrevoke=0x7f05000a;
+        public static final int nosettings=0x7f050001;
+        public static final int posted=0x7f050006;
+        public static final int posting=0x7f050005;
+        public static final int preloadimages=0x7f05000b;
+        public static final int revoked=0x7f050009;
+        public static final int revoking=0x7f050008;
+        public static final int selectnetwork=0x7f050003;
+        public static final int settings=0x7f050000;
+        public static final int settingstitle=0x7f050004;
+        public static final int waitforsettings=0x7f050002;
     }
     public static final class xml {
         public static final int pinkelstar=0x7f040000;
