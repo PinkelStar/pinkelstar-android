@@ -1,20 +1,20 @@
 PinkelStar Android UI Framework
 ===============================
 
-This is the home of the PinkelStar Android Client UI Framework. To use this framework you will need to register for a developer 
-account at [PinkelStar](http://www.pinkelstar.com). Once registered, you can download this framework by cloning this repository :
+This is the home of the PinkelStar Android Client UI Framework. To use this framework you will need to register for a developer
+account at [PinkelStar](http://www.pinkelstar.com). Once registered, you can download the framework by cloning this repository :
 
-	git clone git@github.com:PinkelStar/pinkelstar-android-ui.git PinkelStarAndroidUI
-	
-This repository contains the entire UI project which you can use as-is or modify to fit the needs of your application. 
-Also contained is a jar file in the lib directory which is used by the UI to communicate with the Pinkelstar server.
+  git clone git@github.com:PinkelStar/pinkelstar-android-ui.git PinkelStarAndroidUI
+
+This repository contains the entire UI project which you can use as-is or modify to fit the needs of your application.
+Also contained is a jar file in the lib directory which is used by the UI to communicate with the PinkelStar server.
 Full instructions are included below on how to add the UI code to an Android project.
 
 A demo app with PinkelStar already integrated (although you will need to set your application key and secret) can be downloaded from the downloads section.
 
 If you wish to create a custom UI and use the server communication jar directly. Please see the documentation which is also available from the downloads section.
 
-Please post feature requests and bug reports to the GitHub issues tab. 
+Please post feature requests and bug reports to the GitHub issues tab.
 
 If you see a possible improvement or feature which can be added, please fork this project, make the required changes, and
 send us a pull request so we can merge your enhancements in to the master UI project.
@@ -35,71 +35,72 @@ Requirements:
 * Android 1.5 SDK
 
 
-Steps for setting up your first Pinkelstar enabled Android app :
+Steps for setting up your first PinkelStar enabled Android app :
 ----------------------------------------------------------------
 
 - Create a new Android Project (create default activity to reference and edit later)
-	
+
 - Add a button inside the `LinearLayout` in `res/layout/main.xml`
-	    
-		<Button android:text="Pinkelstar" android:id="@+id/Button01" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 
-- Add the following code to the default activity class, after setcontentview, to start Pinkelstar:
+        <Button android:text="Share" android:id="@+id/Button01" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 
-		Button b = (Button) findViewById(R.id.Button01);
-		b.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(ACTIVITYCLASSNAME.this, com.pinkelstar.android.ui.PSSharing.class);
-				intent.putExtra("devmsg", "this is a custom developer message");
-				startActivity(intent);
-			}
-		});
-		
-	- replace `ACTIVITYCLASSNAME` with your default activity.
-	- set an appropriate developer message in the intent.
-	- set an appropriate content url in the intent. (optional)
+- Add the following code to the default activity class, after setContentView, to start PinkelStar:
 
-- Add the Pinkelstar UI project as an Android library:
-	- Import the UI project from the zip file into your workspace. Make sure that the project name does not have dashes, underscores, periods or spaces. 
-	- Right click on your project and select `Properties`.
-	- From the list on the left, select `Android`.
-	- At the bottom press the `add` button and select the project you imported Pinkelstar as from the dialog.
+        Button b = (Button) findViewById(R.id.Button01);
+        b.setOnClickListener(new View.OnClickListener() {
+          public void onClick(View v) {
+            Intent intent = new Intent(ACTIVITYCLASSNAME.this, com.pinkelstar.android.ui.PSSharing.class);
+            intent.putExtra("developerMessage", "this is a custom developer message");
+            startActivity(intent);
+          }
+        });
 
-	> Project Properties > Android > Add (in Library section) > PinkelStarAndroidUI
-	> (depending on the name of the Pinkelstar UI project, but we recommend no spaces, dashes or .'s)
+    - replace `ACTIVITYCLASSNAME` with your default activity.
+    - set an appropriate developer message in the intent by setting developerMessage.
+    - set an appropriate content url in the intent by setting contentUrl. (optional)
+
+- Add the PinkelStar UI project as an Android library:
+    - If not already done, import the UI project into your workspace. Make sure that the project name does not have dashes, underscores, periods or spaces.
+    - Right click on your project and select `Properties`.
+    - From the list on the left, select `Android`.
+    - At the bottom press the `add` button and select the project you imported PinkelStar as from the dialog.
+
+    > Project Properties > Android > Add (in Library section) > PinkelStarAndroidUI
+    > (depending on the name of the PinkelStar UI project)
 
 
-- Add the Pinkelstar Server jar to the build path of your project.
-	- Right click on your project and select `Properties`.
-	- From the list on the left, select `Build Path`.
-	- On the `Libraries` tab, press the `Add Jars..` button and select the jar in the `lib` directory of your Pinkelstar project.
+- Add the PinkelStar Server jar to the build path of your project.
+    - Right click on your project and select `Properties`.
+    - From the list on the left, select `Build Path`.
+    - On the `Libraries` tab, press the `Add Jars..` button and select the jar in the `lib` directory of your PinkelStar project.
 
-	> Java Build Path > Libraries > Add Jars.. > PinkelStarAndroidUI/lib/pinkelstar-android-server.jar
+    > Java Build Path > Libraries > Add Jars.. > PinkelStarAndroidUI/lib/pinkelstar-android-server.jar
 
-- in `AndroidManifest.xml` some changes are needed which:
+- In `AndroidManifest.xml` some changes are needed which:
 
-	- reference the Application in the `name` parameter of the `application` tag.
-	
-	If your app (or another library your app uses) needs to implement its own application class, either make 
-	it a subclass of `PSApplication` or implement `PSApplicationState` and implement the same functionality
-	as in PSApplication. Don't forget to reference your own application class in the `application` xml below.
+    - reference the Application in the `name` parameter of the `application` tag.
 
-			<application android:icon="@drawable/icon" android:name="com.pinkelstar.android.ui.PSApplication" android:label="@string/app_name">
+        If your app (or another library your app uses) needs to implement its own application class, either make
+        it a subclass of `PSApplication` or have it implement the same functionality
+        as in PSApplication. Don't forget to reference your own application class in the `application` xml below.
 
-	- add the pinkelstar activies *inside* the `application` tag
+            <application android:icon="@drawable/icon" android:name="com.pinkelstar.android.ui.PSApplication" android:label="@string/app_name">
 
-			<activity android:name="com.pinkelstar.android.ui.PSSharing"></activity>
-			<activity android:name="com.pinkelstar.android.ui.PSSettings" android:screenOrientation="portrait"></activity>
-			<activity android:name="com.pinkelstar.android.server.NetworkAuth" android:theme="@android:style/Theme.Translucent"></activity>
+    - add the pinkelstar activies *inside* the `application` tag
 
-	- add the permissions for accessing the internet and the device id *below* the application tag
+            <activity android:name="com.pinkelstar.android.ui.PSSharing"></activity>
+            <activity android:name="com.pinkelstar.android.ui.PSSettings" android:screenOrientation="portrait"></activity>
+            <activity android:name="com.pinkelstar.android.server.NetworkAuth" android:theme="@android:style/Theme.Translucent"></activity>
 
-			<uses-permission android:name="android.permission.INTERNET" />
-			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    - add the permissions for accessing the internet and the device id *below* the application tag
 
-- in the '/values/strings.xml` file in your project, paste the app key and secret from the app details on the [developer console](http://pinkelstar.com)
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-		<string name="app_key">insert your app key here</string>
-		<string name="app_secret">insert your app secret here</string> 
+- Create a file in `/res/xml` called `pinkelstar.xml` and paste in the follow code, but don't forget to add your app key and secret from the application details in the [developer console](https://www.pinkelstar.com/account)
 
+            <settings>
+                <key>insert your app key here</key>
+                <secret>insert your app secret here</secret>
+                <preloadimages>true</preloadimages>
+            </settings>
