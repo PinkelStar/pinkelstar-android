@@ -3,8 +3,8 @@ package com.pinkelstar.android.ui.tasks;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
-import com.pinkelstar.android.ui.ImageCache;
-import com.pinkelstar.android.ui.ImageCallback;
+import com.pinkelstar.android.ui.util.ImageCache;
+import com.pinkelstar.android.ui.util.ImageCallback;
 
 public class ImageTask extends AsyncTask<String, Void, Drawable> {
 

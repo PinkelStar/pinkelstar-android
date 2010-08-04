@@ -58,6 +58,8 @@ import com.pinkelstar.android.server.PinkelstarStatable;
 import com.pinkelstar.android.server.Server;
 import com.pinkelstar.android.server.Utils;
 import com.pinkelstar.android.ui.tasks.RevokeTask;
+import com.pinkelstar.android.ui.util.ImageCache;
+import com.pinkelstar.android.ui.util.ImageCallback;
 
 public class PSSettings extends Activity {
 

@@ -1,4 +1,4 @@
-package com.pinkelstar.android.ui;
+package com.pinkelstar.android.ui.util;
 
 import java.lang.ref.SoftReference;
 import java.net.URL;

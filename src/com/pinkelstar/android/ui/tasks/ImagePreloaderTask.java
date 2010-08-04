@@ -6,18 +6,18 @@ import android.util.Log;
 import com.pinkelstar.android.server.Constants;
 import com.pinkelstar.android.server.Server;
 import com.pinkelstar.android.server.Utils;
-import com.pinkelstar.android.ui.ImageCache;
+import com.pinkelstar.android.ui.util.ImageCache;
 
 public class ImagePreloaderTask extends AsyncTask<Void, Void, Void> {
 	private Server server;
 	
 	public static void initialize(Server server) {
-		new ImagePreloaderTask(server);
+		ImagePreloaderTask preloader = new ImagePreloaderTask(server);
+		preloader.execute();
 	}
 	
 	public ImagePreloaderTask(Server server) {
 		this.server = server;
-		this.execute();
 	}
 	
 	@Override

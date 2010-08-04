@@ -6,7 +6,7 @@ import com.pinkelstar.android.server.Server;
 
 public class SessionTask extends AsyncTask<Void, Void, Void> {
 	
-	private Server server;
+	private Server server = null;
 	private boolean preloadImages;
 	
 	public SessionTask(Server server, boolean preloadImages) {
