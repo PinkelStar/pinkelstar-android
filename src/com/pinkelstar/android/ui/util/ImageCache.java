@@ -43,7 +43,7 @@ public class ImageCache {
 			}
 		}
 
-		new ImageTask(imageCallback, this).execute(url);
+		new ImageTask(imageCallback).execute(url);
 	}
 
 	public Drawable loadAndStoreImage(String url) {
@@ -68,7 +68,6 @@ public class ImageCache {
 			}
 			return true;
 		}
-
 		return false;
 	}
 

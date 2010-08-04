@@ -9,21 +9,18 @@ import com.pinkelstar.android.server.Utils;
 import com.pinkelstar.android.ui.util.ImageCache;
 
 public class ImagePreloaderTask extends AsyncTask<Void, Void, Void> {
-	private Server server;
 	
-	public static void initialize(Server server) {
-		ImagePreloaderTask preloader = new ImagePreloaderTask(server);
+	public static void initialize() {
+		ImagePreloaderTask preloader = new ImagePreloaderTask();
 		preloader.execute();
 	}
 	
-	public ImagePreloaderTask(Server server) {
-		this.server = server;
-	}
+	public ImagePreloaderTask() { }
 	
 	@Override
 	protected Void doInBackground(Void... params) {
 		Log.d("PinkelStar", "preloading images");
-		switch (server.getState()) {
+		switch (Server.getInstance().getState()) {
 		case Server.STATE_INITIALIZED:
 			preloadIcons();
 			Log.d("PinkelStar", "images preloaded");
@@ -36,8 +33,8 @@ public class ImagePreloaderTask extends AsyncTask<Void, Void, Void> {
 	}
 	
 	private void preloadIcons() {
-		ImageCache.getInstance().preloadDrawable(server.getIconUrl());
-		for (String networkName : server.getKnownNetworks()) {
+		ImageCache.getInstance().preloadDrawable(Server.getInstance().getIconUrl());
+		for (String networkName : Server.getInstance().getKnownNetworks()) {
 			String networkUrl = Utils.buildImageUrl(networkName, Constants.LARGE_IMAGES);
 			ImageCache.getInstance().preloadDrawable(networkUrl);
 		}

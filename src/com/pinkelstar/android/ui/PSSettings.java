@@ -54,7 +54,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.pinkelstar.android.server.Constants;
-import com.pinkelstar.android.server.PinkelstarStatable;
 import com.pinkelstar.android.server.Server;
 import com.pinkelstar.android.server.Utils;
 import com.pinkelstar.android.ui.tasks.RevokeTask;
@@ -63,16 +62,10 @@ import com.pinkelstar.android.ui.util.ImageCallback;
 
 public class PSSettings extends Activity {
 
-	private Server psServer;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		PinkelstarStatable app = (PinkelstarStatable) getApplication();
-		this.psServer = app.getPinkelstarServer();
-
 		setupNetworkSelectors();
 	}
 
@@ -89,7 +82,7 @@ public class PSSettings extends Activity {
 		LayoutInflater li = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		LinearLayout ll = (LinearLayout) li.inflate(R.layout.pssettings, null);
 
-		for (String networkName : psServer.getKnownNetworks()) {
+		for (String networkName : Server.getInstance().getKnownNetworks()) {
 			RelativeLayout rl = addNetworkSelector(networkName);
 			ll.addView(rl, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		}
@@ -138,14 +131,14 @@ public class PSSettings extends Activity {
 
 		tb.setButtonDrawable(R.drawable.togglebuttons);
 		tb.setBackgroundResource(R.drawable.nullimg);
-		tb.setChecked(psServer.isNetworkAuthenticated(networkName));
+		tb.setChecked(Server.getInstance().isNetworkAuthenticated(networkName));
 
 		tb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					psServer.startAuth(PSSettings.this, networkName);
+					Server.getInstance().startAuthentication(PSSettings.this, networkName);
 				} else {
-					new RevokeTask(psServer, PSSettings.this).execute(networkName);
+					new RevokeTask(PSSettings.this).execute(networkName);
 				}
 			}
 		});
@@ -156,5 +149,4 @@ public class PSSettings extends Activity {
 
 		rl.addView(tb, rlp);
 	}
-
 }

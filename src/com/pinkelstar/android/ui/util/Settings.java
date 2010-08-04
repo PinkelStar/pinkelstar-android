@@ -30,12 +30,6 @@ public final class Settings {
 		throw new CloneNotSupportedException();
 	}
 	
-	public static Settings initialize(XmlResourceParser parser) {
-		Settings settings = Settings.getInstance();
-		settings.loadSettings(parser);
-		return settings;
-	}
-	
 	public static String key(){
 		return Settings.getInstance().getKey();
 	}
@@ -69,7 +63,7 @@ public final class Settings {
 			throw new IllegalStateException("Settings have not been loaded, please initialize the settings by calling initialize or loadSettings first");
 	}
 	
-	public void loadSettings(XmlResourceParser parser) {
+	public void loadSettingsFromXml(XmlResourceParser parser) {
 		if (SETTINGS_LOADED)
 			return;
 		
