@@ -1,6 +1,14 @@
 ChangeLog
 ---------
 
+v0.2.0 - 2010 August 02
+
+- SessionTask now takes care of the majority of heavy lifting
+- ImageCache is now a singleton
+- Added a Settings class which loads pinkelstar.xml  
+- Implemented the updates and changes from the server class
+
+
 v0.1.0 - 2010 August 02
 
 - Added preloading of required images to the startup
