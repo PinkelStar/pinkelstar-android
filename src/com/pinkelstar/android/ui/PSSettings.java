@@ -54,6 +54,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.pinkelstar.android.server.Constants;
+import com.pinkelstar.android.server.PinkelstarStatable;
 import com.pinkelstar.android.server.Server;
 import com.pinkelstar.android.server.Utils;
 import com.pinkelstar.android.ui.tasks.RevokeTask;
@@ -67,7 +68,7 @@ public class PSSettings extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		PSApplicationState app = (PSApplicationState) getApplication();
+		PinkelstarStatable app = (PinkelstarStatable) getApplication();
 		this.psServer = app.getPinkelstarServer();
 
 		setupNetworkSelectors();
@@ -107,11 +108,10 @@ public class PSSettings extends Activity {
 	}
 
 	private void createNetworkIcon(String networkName, RelativeLayout rl) {
-		PSApplicationState app = (PSApplicationState) getApplication();
 		final ImageView iv = new ImageView(PSSettings.this);
 		String imageUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
 
-		app.getPinkelstarImageCache().loadDrawable(imageUrl, new ImageCallback() {
+		ImageCache.getInstance().loadDrawable(imageUrl, new ImageCallback() {
 			public void setDrawable(Drawable d) {
 				iv.setImageDrawable(d);
 			}

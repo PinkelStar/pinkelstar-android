@@ -64,6 +64,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.pinkelstar.android.server.Constants;
+import com.pinkelstar.android.server.PinkelstarStatable;
 import com.pinkelstar.android.server.Server;
 import com.pinkelstar.android.server.Utils;
 import com.pinkelstar.android.ui.tasks.PostTask;
@@ -82,7 +83,7 @@ public class PSSharing extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		PSApplicationState app = (PSApplicationState) getApplication();
+		PinkelstarStatable app = (PinkelstarStatable) getApplication();
 		this.psServer = app.getPinkelstarServer();
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -160,8 +161,7 @@ public class PSSharing extends Activity {
 	}
 
 	private void checkboxes() {
-		PSApplicationState app = (PSApplicationState) getApplication();
-		app.getPinkelstarImageCache().loadDrawable(psServer.getIconUrl(), new ImageCallback() {
+		ImageCache.getInstance().loadDrawable(psServer.getIconUrl(), new ImageCallback() {
 			public void setDrawable(Drawable d) {
 				ImageView iv = (ImageView) findViewById(R.id.iconimg);
 				iv.setImageDrawable(d);
@@ -185,12 +185,11 @@ public class PSSharing extends Activity {
 
 	private ToggleButton createButton(int i) {
 		final ToggleButton tb = new ToggleButton(PSSharing.this);
-		PSApplicationState app = (PSApplicationState) getApplication();
 		String networkName = psServer.getKnownNetworks()[i];
 		String imageUrl = Utils.buildImageUrl(networkName, Constants.LARGE_IMAGES);
 		tb.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.placeholder_button_icon, 0, 0);
 
-		app.getPinkelstarImageCache().loadDrawable(imageUrl, new ImageCallback() {
+		ImageCache.getInstance().loadDrawable(imageUrl, new ImageCallback() {
 			public void setDrawable(Drawable d) {
 				tb.setCompoundDrawablesWithIntrinsicBounds(null, d, null, null);
 			}
@@ -269,10 +268,9 @@ public class PSSharing extends Activity {
 	}
 
 	private void preloadSmallNetworkImages() {
-		PSApplicationState app = (PSApplicationState) getApplication();
 		for (String networkName : psServer.getKnownNetworks()) {
 			String networkUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
-			app.getPinkelstarImageCache().preloadDrawable(networkUrl);
+			ImageCache.getInstance().preloadDrawable(networkUrl);
 		}
 	}
 	

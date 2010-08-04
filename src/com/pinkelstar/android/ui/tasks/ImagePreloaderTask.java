@@ -10,15 +10,13 @@ import com.pinkelstar.android.ui.ImageCache;
 
 public class ImagePreloaderTask extends AsyncTask<Void, Void, Void> {
 	private Server server;
-	private ImageCache imageCache;
 	
-	public static void initialize(Server server, ImageCache imageCache) {
-		new ImagePreloaderTask(server, imageCache);
+	public static void initialize(Server server) {
+		new ImagePreloaderTask(server);
 	}
 	
-	public ImagePreloaderTask(Server server, ImageCache imageCache) {
+	public ImagePreloaderTask(Server server) {
 		this.server = server;
-		this.imageCache = imageCache;
 		this.execute();
 	}
 	
@@ -38,10 +36,10 @@ public class ImagePreloaderTask extends AsyncTask<Void, Void, Void> {
 	}
 	
 	private void preloadIcons() {
-		imageCache.preloadDrawable(server.getIconUrl());
+		ImageCache.getInstance().preloadDrawable(server.getIconUrl());
 		for (String networkName : server.getKnownNetworks()) {
 			String networkUrl = Utils.buildImageUrl(networkName, Constants.LARGE_IMAGES);
-			imageCache.preloadDrawable(networkUrl);
+			ImageCache.getInstance().preloadDrawable(networkUrl);
 		}
 	}
 }

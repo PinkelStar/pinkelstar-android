@@ -3,17 +3,14 @@ package com.pinkelstar.android.ui.tasks;
 import android.os.AsyncTask;
 
 import com.pinkelstar.android.server.Server;
-import com.pinkelstar.android.ui.ImageCache;
 
 public class SessionTask extends AsyncTask<Void, Void, Void> {
 	
 	private Server server;
-	private ImageCache imageCache;
 	private boolean preloadImages;
 	
-	public SessionTask(Server server, ImageCache imageCache, boolean preloadImages) {
+	public SessionTask(Server server, boolean preloadImages) {
 		this.server = server;
-		this.imageCache = imageCache;
 		this.preloadImages = preloadImages;
 	}
 	
@@ -23,14 +20,14 @@ public class SessionTask extends AsyncTask<Void, Void, Void> {
 		return null;
 	}
 	
-	public static void initialize(Server server, ImageCache imageCache, boolean preloadImages) {
-		SessionTask st = new SessionTask(server, imageCache, preloadImages);
+	public static void initialize(Server server, boolean preloadImages) {
+		SessionTask st = new SessionTask(server, preloadImages);
 		st.execute();
 	}
 	
 	protected void onPostExecute(Void result) {
 		if(this.preloadImages) {
-			ImagePreloaderTask.initialize(server, imageCache);
+			ImagePreloaderTask.initialize(server);
 		}
 	}
 	
