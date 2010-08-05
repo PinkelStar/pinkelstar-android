@@ -105,6 +105,7 @@ public class PSSettings extends Activity {
 	private void createNetworkIcon(String networkName, RelativeLayout rl) {
 		final ImageView iv = new ImageView(PSSettings.this);
 		String imageUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
+		iv.setImageDrawable(getResources().getDrawable(R.drawable.small_placeholder_button_icon));
 
 		ImageCache.getInstance().loadDrawable(imageUrl, new ImageCallback() {
 			public void setDrawable(Drawable d) {
@@ -112,7 +113,7 @@ public class PSSettings extends Activity {
 			}
 		});
 
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.CENTER_VERTICAL);
 		rl.addView(iv, rlp);
 	}
@@ -121,7 +122,7 @@ public class PSSettings extends Activity {
 		TextView tv = new TextView(PSSettings.this);
 		tv.setText(networkName);
 
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
 		rl.addView(tv, rlp);
 	}
@@ -143,7 +144,7 @@ public class PSSettings extends Activity {
 			}
 		});
 
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(94, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 		rlp.addRule(RelativeLayout.CENTER_VERTICAL);
 

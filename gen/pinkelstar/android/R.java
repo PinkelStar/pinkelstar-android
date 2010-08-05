@@ -48,11 +48,12 @@ public final class R {
         public static final int settings=0x7f020022;
         public static final int shape=0x7f020023;
         public static final int sharebutton=0x7f020024;
-        public static final int togglebuttons=0x7f020025;
-        public static final int toggleoff=0x7f020026;
-        public static final int toggleon=0x7f020027;
-        public static final int topbar=0x7f020028;
-        public static final int unselected_button_bg2=0x7f020029;
+        public static final int small_placeholder_button_icon=0x7f020025;
+        public static final int togglebuttons=0x7f020026;
+        public static final int toggleoff=0x7f020027;
+        public static final int toggleon=0x7f020028;
+        public static final int topbar=0x7f020029;
+        public static final int unselected_button_bg2=0x7f02002a;
     }
     public static final class id {
         public static final int BottomPanel=0x7f060005;
