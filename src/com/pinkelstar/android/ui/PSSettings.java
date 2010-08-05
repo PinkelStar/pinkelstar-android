@@ -67,6 +67,12 @@ public class PSSettings extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setupNetworkSelectors();
+
+	    
+	    
+	    // Run in a 32-bit window, which improves the appearance of some artwork in the  UI 
+            Window window = getWindow();
+	    window.setFormat(PixelFormat.RGBA_8888);
 	}
 
 	/**
