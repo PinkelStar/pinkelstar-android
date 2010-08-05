@@ -44,6 +44,7 @@ import pinkelstar.android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -82,7 +83,8 @@ public class PSSharing extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+        Window window = getWindow();
+	    window.setFormat(PixelFormat.RGBA_8888);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.pssharing);
 		setupNetworkCheckboxes(savedInstanceState);
