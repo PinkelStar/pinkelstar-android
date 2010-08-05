@@ -40,6 +40,7 @@ package com.pinkelstar.android.ui;
 import pinkelstar.android.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -68,10 +69,8 @@ public class PSSettings extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setupNetworkSelectors();
 
-	    
-	    
 	    // Run in a 32-bit window, which improves the appearance of some artwork in the  UI 
-            Window window = getWindow();
+        Window window = getWindow();
 	    window.setFormat(PixelFormat.RGBA_8888);
 	}
 
