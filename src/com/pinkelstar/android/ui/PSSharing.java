@@ -184,10 +184,11 @@ public class PSSharing extends Activity {
 
 	private ToggleButton createButton(int i) {
 		final ToggleButton tb = new ToggleButton(PSSharing.this);
+		tb.setPadding(0,10,0,15);
 		String networkName = Server.getInstance().getKnownNetworks()[i];
 		String imageUrl = Utils.buildImageUrl(networkName, Constants.LARGE_IMAGES);
 		tb.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.placeholder_button_icon, 0, 0);
-
+		
 		ImageCache.getInstance().loadDrawable(imageUrl, new ImageCallback() {
 			public void setDrawable(Drawable d) {
 				tb.setCompoundDrawablesWithIntrinsicBounds(null, d, null, null);
