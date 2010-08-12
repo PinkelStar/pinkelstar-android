@@ -3,7 +3,9 @@ package com.pinkelstar.android.ui.tasks;
 import pinkelstar.android.R;
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.pinkelstar.android.server.PinkelStarException;
 import com.pinkelstar.android.server.Server;
 import com.pinkelstar.android.ui.util.Settings;
 
@@ -35,7 +37,11 @@ public class SessionTask extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected Void doInBackground(Void... params) {
-		Server.initialize(application, key, secret);
+		try {
+			Server.initialize(application, key, secret);
+		} catch (PinkelStarException e) {
+			Log.d("PinkelStar","failure during initialize "+e.toString());
+		}
 		return null;
 	}
 	
