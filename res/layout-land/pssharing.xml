@@ -18,13 +18,13 @@
 		android:layout_alignParentRight="true" android:layout_width="150sp"
 		android:layout_above="@id/RelativeLayout01">
 		<TextView android:id="@+id/TextView01" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="One time login"
-			android:layout_alignParentRight="true" android:textSize="10sp"
+			android:layout_height="wrap_content" android:text="One time login" android:textColor="#FFFFFFFF"
+			android:layout_alignParentRight="true" android:textSize="9sp" android:textStyle="bold"
 			android:layout_marginBottom="10sp" android:layout_marginRight="10sp"
 			android:layout_marginTop="5sp"></TextView>
 		<TextView android:id="@+id/TextView04" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:textColor="#FF000000"
-			android:textSize="12sp" android:layout_marginBottom="10sp"
+			android:textSize="11sp" android:layout_marginBottom="10sp" android:textStyle="bold"
 			android:text="Select networks" android:layout_marginLeft="10sp"
 			android:layout_marginTop="15sp"></TextView>
 		<ScrollView android:id="@+id/GridView01"
@@ -60,12 +60,12 @@
 		<RelativeLayout android:id="@+id/TopPanel"
 			android:layout_height="wrap_content" android:layout_width="wrap_content">
 			<ImageView android:src="@drawable/icon" android:id="@+id/iconimg"
-				android:layout_height="60sp" android:scaleType="fitXY"
-				android:layout_width="60sp" android:layout_marginTop="50sp"
-				android:layout_marginLeft="40sp"></ImageView>
+				android:layout_height="60sp" android:scaleType="fitXY" android:paddingLeft="15sp" android:paddingRight="15sp" 
+				android:layout_width="80sp" android:layout_marginTop="50sp"
+				android:layout_marginLeft="20sp"></ImageView>
 			<ImageView android:layout_width="wrap_content" android:id="@+id/iconshadow"
 				android:layout_height="wrap_content" android:src="@drawable/main_logo_shadow"
-				android:layout_below="@id/iconimg" android:layout_alignRight="@id/iconimg"
+				android:layout_alignBottom="@id/iconimg" android:layout_alignRight="@id/iconimg"
 				android:layout_alignLeft="@id/iconimg" android:scaleType="fitXY"></ImageView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_toRightOf="@id/iconimg" android:layout_alignBottom="@id/iconimg"
@@ -73,8 +73,7 @@
 				android:textStyle="bold" android:textSize="12sp" android:maxLines="2"
 				android:ellipsize="end" android:layout_height="wrap_content"
 				android:layout_alignTop="@id/iconimg" android:gravity="center_vertical"
-				android:text="developer message asdfasdfasdfasdfasdfadsfasdfasdfadsfasd"
-				android:layout_marginLeft="10sp" android:layout_marginRight="10sp"></TextView>
+				android:text="" android:layout_marginRight="10sp"></TextView>
 			<EditText android:id="@+id/message"
 				android:layout_marginLeft="10sp" android:layout_marginRight="10sp"
 				android:layout_height="35sp" android:textSize="13sp"

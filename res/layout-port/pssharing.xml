@@ -21,18 +21,24 @@
 			android:layout_height="wrap_content" android:layout_marginLeft="10sp"
 			android:layout_marginRight="10sp" android:layout_width="fill_parent"
 			android:layout_marginTop="20sp">
+			
+						<ImageView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:src="@drawable/main_logo_shadow"
+				android:layout_alignBottom="@id/iconimg" android:layout_alignRight="@id/iconimg"
+				android:layout_alignLeft="@id/iconimg" android:scaleType="fitXY"></ImageView>
+			
 			<ImageView android:src="@drawable/icon"
-				android:layout_marginLeft="50sp" android:id="@+id/iconimg"
+				android:layout_marginLeft="30sp" android:id="@+id/iconimg"
 				android:layout_height="60sp" android:scaleType="fitXY"
-				android:layout_width="60sp" android:layout_marginTop="20sp"></ImageView>
+				android:layout_width="90sp" android:paddingLeft="15sp" android:paddingRight="15sp" android:layout_marginTop="20sp"></ImageView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:layout_toRightOf="@id/iconimg"
 				android:layout_alignTop="@id/iconimg" android:id="@+id/iconmsg"
 				android:textColor="#FFFFFFFF" android:textStyle="bold"
 				android:textSize="12sp"
-				android:text="The Android version of this app is better than the iPhone version"
+				android:text=""
 				android:maxLines="2" android:ellipsize="end"
-				android:layout_marginRight="10sp" android:layout_marginLeft="10sp"
+				android:layout_marginRight="10sp" 
 				android:layout_alignBottom="@id/iconimg" android:gravity="center_vertical"></TextView>
 
 			<TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
@@ -45,10 +51,7 @@
 				android:layout_height="35sp" android:textSize="13sp"
 				android:maxLines="1" android:layout_above="@+id/TextView03"
 				android:hint="Enter a message"></EditText>
-			<ImageView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:src="@drawable/main_logo_shadow"
-				android:layout_below="@id/iconimg" android:layout_alignRight="@id/iconimg"
-				android:layout_alignLeft="@id/iconimg" android:scaleType="fitXY"></ImageView>
+
 		</RelativeLayout>
 		<ImageView android:id="@+id/ImageView03"
 			android:layout_below="@id/ImageView01" android:layout_height="wrap_content"
@@ -65,16 +68,16 @@
 		android:id="@+id/BottomPanel" android:layout_below="@id/topframe"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:layout_above="@+id/RelativeLayout01">
-		<TextView android:id="@+id/TextView01" android:layout_width="wrap_content"
+		<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:textColor="#FFFFFFFF"
 			android:layout_height="wrap_content" android:text="One time login"
-			android:layout_alignParentRight="true" android:textSize="10sp"
+			android:layout_alignParentRight="true" android:textSize="9sp"
 			android:layout_marginBottom="10sp" android:layout_marginRight="20sp"
-			android:layout_marginTop="10sp"></TextView>
-		<TextView android:id="@+id/TextView04" android:layout_width="wrap_content"
+			android:layout_marginTop="10sp" android:textStyle="bold"></TextView>
+		<TextView android:id="@+id/TextView04" android:textStyle="bold" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:textColor="#FF000000"
-			android:textSize="12sp" android:layout_marginBottom="10sp"
+			android:textSize="11sp" android:layout_marginBottom="10sp"
 			android:layout_marginLeft="20sp" android:layout_marginTop="10sp"
-			android:text="Select your networks"></TextView>
+			android:text="Select networks"></TextView>
 		<HorizontalScrollView android:id="@+id/GridView01"
 			android:layout_below="@id/TextView04" android:layout_width="fill_parent"
 			android:layout_height="fill_parent">

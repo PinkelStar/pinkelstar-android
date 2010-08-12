@@ -195,6 +195,7 @@ public class PSSharing extends Activity {
 			}
 		});
 
+		tb.setTextSize(11);
 		tb.setBackgroundResource(R.drawable.buttonstates);
 		tb.setTextOn(networkName);
 		tb.setTextOff(networkName);
