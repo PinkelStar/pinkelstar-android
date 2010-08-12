@@ -29,7 +29,7 @@ public class PostTask extends AsyncTask<String, Void, Boolean> {
 			Server.getInstance().publishMessage(networks, params[1], params[2], params[3]);
 			return new Boolean(true);
 		} catch (PinkelStarException pse) {
-			Log.d("PinkelStar","failure during publish "+pse.toString());
+			Log.d("PinkelStar", "failure during message publish : " + pse.toString());
 			return new Boolean(false);
 		}
 	}

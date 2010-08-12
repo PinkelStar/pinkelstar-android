@@ -40,7 +40,7 @@ public class SessionTask extends AsyncTask<Void, Void, Void> {
 		try {
 			Server.initialize(application, key, secret);
 		} catch (PinkelStarException e) {
-			Log.d("PinkelStar","failure during initialize "+e.toString());
+			Log.d("PinkelStar", "failure during session initialization : " + e.toString());
 		}
 		return null;
 	}

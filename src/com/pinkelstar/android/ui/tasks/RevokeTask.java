@@ -30,7 +30,7 @@ public class RevokeTask extends AsyncTask<String, Void, Boolean> {
 			Server.getInstance().removeNetwork(networkname);
 			return new Boolean(true);
 		} catch (PinkelStarException pse) {
-			Log.d("PinkelStar","failure during revoke "+pse.toString());
+			Log.d("PinkelStar", "failure during " + networkname + " network revoke : " + pse.toString());
 			return new Boolean(false);
 		}
 	}
