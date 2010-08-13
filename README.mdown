@@ -107,4 +107,5 @@ Steps for setting up your first PinkelStar enabled Android app :
 
 - To enable logging, open a shell using the adb tool and set the logging level to VERBOSE like so "setprop log.tag.PinkelStar VERBOSE".
         Log messages tagged with 'PinkelStar' will be shown in the logcat output.
+  If you are using eclipse, you can also set "-prop log.tag.PinkelStar=VERBOSE" to the 'additional emulator command line options' field on the 'target' tab of the run configuration of your app. 
 
