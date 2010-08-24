@@ -4,13 +4,17 @@ PinkelStar Android UI Framework
 This is the home of the PinkelStar Android Client UI Framework. To use this framework you will need to register for a developer
 account at [PinkelStar](http://www.pinkelstar.com). Once registered, you can download the framework by cloning this repository :
 
-  git clone git@github.com:PinkelStar/pinkelstar-android-ui.git PinkelStarAndroidUI
+    git clone git@github.com:PinkelStar/pinkelstar-android-ui.git PinkelStarAndroidUI
 
 This repository contains the entire UI project which you can use as-is or modify to fit the needs of your application.
 Also contained is a jar file in the lib directory which is used by the UI to communicate with the PinkelStar server.
 Full instructions are included below on how to add the UI code to an Android project.
 
-A demo app with PinkelStar already integrated (although you will need to set your application key and secret) can be downloaded from the downloads section.
+If you want to play around with a [**demo app**](http://github.com/PinkelStar/pinkelstar-android-demo) which has PinkelStar already setup in it, you can [download the source here](http://github.com/PinkelStar/pinkelstar-android-demo/archives/master) or clone this repository using:
+
+    git clone git://github.com/PinkelStar/pinkelstar-android-demo.git
+
+(*remember to have a quick read of the readme)
 
 If you wish to create a custom UI and use the server communication jar directly. Please see the documentation which is also available from the downloads section.
 
@@ -99,13 +103,15 @@ Steps for setting up your first PinkelStar enabled Android app :
 
 - Create a file in `/res/xml` called `pinkelstar.xml` and paste in the follow code, but don't forget to add your app key and secret from the application details in the [developer console](https://www.pinkelstar.com/account)
 
-            <settings>
-                <key>insert your app key here</key>
-                <secret>insert your app secret here</secret>
-                <preloadimages>true</preloadimages>
-            </settings>
+        <settings>
+            <key>insert your app key here</key>
+            <secret>insert your app secret here</secret>
+            <preloadimages>true</preloadimages>
+        </settings>
 
-- To enable logging, open a shell using the adb tool and set the logging level to VERBOSE like so "setprop log.tag.PinkelStar VERBOSE".
-        Log messages tagged with 'PinkelStar' will be shown in the logcat output.
-  If you are using eclipse, you can also set "-prop log.tag.PinkelStar=VERBOSE" to the 'additional emulator command line options' field on the 'target' tab of the run configuration of your app. 
+- To enable logging, open a shell using the adb tool and set the logging level to VERBOSE like so `setprop log.tag.PinkelStar VERBOSE`.
+
+  Log messages tagged with 'PinkelStar' will be shown in the logcat output.
+
+  If you are using eclipse, you can also set `-prop log.tag.PinkelStar=VERBOSE` to the 'additional emulator command line options' field on the 'target' tab of the run configuration of your app.
 
