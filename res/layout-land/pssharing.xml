@@ -1,105 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="fill_parent"
-	android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+              	android:layout_height="fill_parent">
 
-	<RelativeLayout android:id="@+id/RelativeLayout01"
-		android:layout_height="wrap_content" android:layout_alignParentBottom="true"
-		android:background="@drawable/bgbottom" android:layout_width="fill_parent">
-		<Button android:id="@+id/publishbutton" android:layout_height="wrap_content"
-			android:text="Publish" android:textColor="#FFFFFFFF"
-			android:textSize="24sp" android:background="@drawable/publishstates"
-			android:layout_width="wrap_content" android:layout_centerInParent="true">
-		</Button>
-	</RelativeLayout>
+    <RelativeLayout android:id="@+id/TopSection"
+                    android:layout_height="fill_parent"
+                    android:layout_width="325sp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/bgtop">
 
+        <ImageView  android:id="@+id/TopBar"
+                    android:src="@drawable/topbar"  
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY" />
 
-	<RelativeLayout android:background="@drawable/bgbottom"
-		android:id="@+id/BottomPanel" android:layout_height="wrap_content"
-		android:layout_alignParentRight="true" android:layout_width="150sp"
-		android:layout_above="@id/RelativeLayout01">
-		<TextView android:id="@+id/TextView01" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="One time login" android:textColor="#FFFFFFFF"
-			android:layout_alignParentRight="true" android:textSize="9sp" android:textStyle="bold"
-			android:layout_marginBottom="10sp" android:layout_marginRight="10sp"
-			android:layout_marginTop="5sp"></TextView>
-		<TextView android:id="@+id/TextView04" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textColor="#FF000000"
-			android:textSize="11sp" android:layout_marginBottom="10sp" android:textStyle="bold"
-			android:text="Select networks" android:layout_marginLeft="10sp"
-			android:layout_marginTop="15sp"></TextView>
-		<ScrollView android:id="@+id/GridView01"
-			android:layout_below="@id/TextView04" android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
-			<LinearLayout android:id="@+id/LinearLayout01"
-				android:layout_height="fill_parent" android:layout_width="fill_parent"
-				android:orientation="vertical" android:gravity="center_horizontal">
-			
-			<LinearLayout android:id="@+id/LinearLayout02"
-				android:layout_height="wrap_content" android:padding="10sp" android:orientation="vertical" android:layout_width="fill_parent" android:gravity="center_horizontal" android:layout_gravity="center_vertical|center_horizontal" android:layout_margin="10sp" android:background="@drawable/shape">
+        <ImageView  android:id="@+id/PinkelStarIcon"
+                    android:src="@drawable/pinkelstar" 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true" />
+
+        <ImageView  android:id="@+id/MainIcon"
+                    android:src="@drawable/icon"
+                    android:layout_below="@id/TopBar"
+                    android:layout_height="60sp"
+                    android:layout_width="90sp"  
+                    android:layout_marginTop="20sp"
+                    android:layout_marginLeft="30sp" 
+                    android:paddingLeft="15sp" 
+                    android:paddingRight="15sp" 
+                    android:scaleType="fitXY" />
+
+        <ImageView  android:id="@+id/MainIconShadow"
+                    android:src="@drawable/main_logo_shadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_alignBottom="@id/MainIcon" 
+                    android:layout_alignRight="@id/MainIcon"
+                    android:layout_alignLeft="@id/MainIcon"
+                    android:scaleType="fitXY" />
+
+        <TextView   android:id="@+id/DeveloperMessage"
+                    android:layout_alignTop="@id/MainIcon"
+                    android:layout_alignBottom="@id/MainIcon" 
+                    android:layout_toRightOf="@id/MainIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_marginRight="10sp" 
+                    android:textColor="#FFFFFFFF" 
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:text=""
+                    android:maxLines="2" 
+                    android:ellipsize="end"
+                    android:gravity="center_vertical" />
+
+        <EditText   android:id="@+id/UserMessage" 
+                    android:layout_height="35sp" 
+                    android:layout_width="fill_parent" 
+                    android:layout_marginTop="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_marginLeft="20sp" 
+                    android:layout_below="@id/MainIconShadow"
+                    android:textSize="13sp"
+                    android:maxLines="1"
+                    android:inputType="text|textAutoCorrect|textCapSentences"
+					android:imeOptions="actionDone"
+                    android:hint="Enter a message" />
+
+    </RelativeLayout>
+    
+    <RelativeLayout android:id="@+id/PublishSection"
+                    android:layout_height="60sp"
+                    android:layout_width="325sp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bgbottom">
+
+        <Button android:id="@+id/PublishButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/publishstates"
+                android:textColor="#FFFFFFFF"
+                android:textSize="24sp"
+                android:text="Publish" />
+
+    </RelativeLayout>
+
+	<RelativeLayout android:id="@+id/NetworkSelectionsSection"
+					android:layout_height="fill_parent"
+					android:layout_width="fill_parent"
+					android:layout_toRightOf="@id/TopSection"
+					android:background="@drawable/bgbottom">
+		
+		<ImageView 	android:id="@+id/ArrowDivider"
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" 
+					android:layout_alignParentLeft="true"
+					android:scaleType="fitStart"
+					android:src="@drawable/dividerver" />
+		
+		<TextView 	android:id="@+id/SelectionHint" 
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10sp"
+					android:layout_marginBottom="5sp"
+					android:layout_marginLeft="20sp" 
+					android:layout_toRightOf="@id/ArrowDivider"
+					android:textColor="#FF000000"
+					android:textSize="11sp" 
+					android:text="Select networks"
+					android:textStyle="bold" />
+								
+		<GridView 	android:id="@+id/NetworkList"
+					android:layout_below="@id/SelectionHint"
+					android:layout_toRightOf="@id/ArrowDivider"
+					android:layout_width="fill_parent" 
+    				android:layout_height="fill_parent"
+    				android:paddingLeft="5dp"
+    				android:paddingRight="8dp"
+    				android:columnWidth="70dp"
+    				android:numColumns="auto_fit"
+    				android:verticalSpacing="10dp"
+    				android:horizontalSpacing="15dp"
+    				android:stretchMode="columnWidth"
+    				android:gravity="center" />
+							
+		<LinearLayout 	android:id="@+id/SettingsLoadingContainer"
+						android:layout_gravity="center_vertical|center_horizontal"
+						android:orientation="vertical" 
+						android:layout_height="wrap_content" 
+						android:layout_width="wrap_content"  
+						android:background="@drawable/shape"
+						android:padding="10sp"
+						android:layout_centerHorizontal="true"
+						android:layout_centerVertical="true" >
 				
-				<ProgressBar android:id="@+id/ProgressBar01"
-					android:layout_width="wrap_content" android:indeterminateBehavior="cycle"
-					android:indeterminate="true" android:layout_height="wrap_content" android:layout_gravity="center_vertical|center_horizontal"></ProgressBar>
-				<TextView android:id="@+id/TextView02" android:text="Loading settings.."
-					android:layout_height="wrap_content" android:textColor="#ffffffff"
-					android:layout_width="fill_parent" android:layout_gravity="center_vertical|center_horizontal"></TextView>
-			</LinearLayout>
-						
-				
-			</LinearLayout>
-		</ScrollView>
-
-
+			<ProgressBar 	android:id="@+id/LoadingProgressBar"
+							android:layout_width="wrap_content" 
+							android:indeterminateBehavior="cycle"
+							android:indeterminate="true" 
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_vertical" />
+								
+			<TextView 	android:id="@+id/LoadingMessage" 
+						android:text="Loading\nsettings.."
+						android:layout_height="wrap_content" 
+						android:layout_width="wrap_content"
+						android:layout_gravity="center_vertical"
+						android:textColor="#ffffffff" />
+		</LinearLayout>
 	</RelativeLayout>
 
-	<RelativeLayout android:id="@+id/topframe"
-		android:background="@drawable/bgtop" android:layout_height="fill_parent"
-		android:layout_width="wrap_content" android:layout_toLeftOf="@id/BottomPanel"
-		android:layout_alignParentLeft="true" android:layout_above="@id/RelativeLayout01">
-
-		<RelativeLayout android:id="@+id/TopPanel"
-			android:layout_height="wrap_content" android:layout_width="wrap_content">
-			<ImageView android:src="@drawable/icon" android:id="@+id/iconimg"
-				android:layout_height="60sp" android:scaleType="fitXY" android:paddingLeft="15sp" android:paddingRight="15sp" 
-				android:layout_width="80sp" android:layout_marginTop="50sp"
-				android:layout_marginLeft="20sp"></ImageView>
-			<ImageView android:layout_width="wrap_content" android:id="@+id/iconshadow"
-				android:layout_height="wrap_content" android:src="@drawable/main_logo_shadow"
-				android:layout_alignBottom="@id/iconimg" android:layout_alignRight="@id/iconimg"
-				android:layout_alignLeft="@id/iconimg" android:scaleType="fitXY"></ImageView>
-			<TextView android:layout_width="wrap_content"
-				android:layout_toRightOf="@id/iconimg" android:layout_alignBottom="@id/iconimg"
-				android:id="@+id/iconmsg" android:textColor="#FFFFFFFF"
-				android:textStyle="bold" android:textSize="12sp" android:maxLines="2"
-				android:ellipsize="end" android:layout_height="wrap_content"
-				android:layout_alignTop="@id/iconimg" android:gravity="center_vertical"
-				android:text="" android:layout_marginRight="10sp"></TextView>
-			<EditText android:id="@+id/message"
-				android:layout_marginLeft="10sp" android:layout_marginRight="10sp"
-				android:layout_height="35sp" android:textSize="13sp"
-				android:maxLines="1" android:layout_below="@id/iconshadow"
-				android:layout_marginBottom="5sp" android:layout_width="fill_parent"
-				android:layout_marginTop="10sp" android:hint="Enter a message"></EditText>
-			<TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:textSize="11sp"
-				android:layout_alignParentBottom="true" android:layout_marginLeft="10sp"
-				android:layout_marginBottom="10sp"></TextView>
-		</RelativeLayout>
-		<ImageView android:id="@+id/ImageView03"
-			android:layout_height="wrap_content" android:src="@drawable/topbar"
-			android:layout_alignParentTop="true" android:layout_width="fill_parent"
-			android:scaleType="fitXY"></ImageView>
-		<ImageView android:id="@+id/ImageView01"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:src="@drawable/pinkelstar" android:layout_alignParentRight="true"></ImageView>
-
-	</RelativeLayout>
-
-
-
-
-	<ImageView android:id="@+id/ImageView02"
-		android:layout_height="wrap_content" android:src="@drawable/dividerver"
-		android:layout_alignBottom="@id/BottomPanel" android:layout_toRightOf="@id/topframe"
-		android:layout_width="wrap_content" android:scaleType="fitXY"></ImageView>
 </RelativeLayout>

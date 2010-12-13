@@ -37,7 +37,9 @@ Except as contained in this notice, the name(s) and/or trademarks of the above c
  */
 package com.pinkelstar.android.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TimerTask;
 
 import pinkelstar.android.R;
@@ -50,23 +52,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.pinkelstar.android.server.Constants;
 import com.pinkelstar.android.server.Server;
-import com.pinkelstar.android.server.Utils;
 import com.pinkelstar.android.ui.tasks.PostTask;
 import com.pinkelstar.android.ui.util.ImageCache;
 import com.pinkelstar.android.ui.util.ImageCallback;
@@ -77,19 +78,58 @@ public class PSSharing extends Activity {
 	private TextView developerMessage;
 	private Button publishButton;
 	private String contentUrl;
-	private ToggleButton[] networkButtons;
 	private Handler mHandler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        Window window = getWindow();
+        
+		Window window = getWindow();
 	    window.setFormat(PixelFormat.RGBA_8888);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		setContentView(R.layout.pssharing);
+		
 		setupNetworkCheckboxes(savedInstanceState);
+		setupSharingLayout(savedInstanceState);
+	}
 
-		developerMessage = (TextView) findViewById(R.id.iconmsg);
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		if (Server.getInstance().getState() == Server.STATE_INITIALIZED) {
+			outState.putSerializable("networkButtonStates", getNetworkStates());
+			super.onSaveInstanceState(outState);
+		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0, 0, 0, R.string.settings).setIcon(R.drawable.settings);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (Server.getInstance().getState() == Server.STATE_INITIALIZED) {
+			startActivity(new Intent(PSSharing.this, PSSettings.class));
+		} else {
+			Toast.makeText(PSSharing.this, R.string.waitforsettings, Toast.LENGTH_SHORT).show();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private Serializable getNetworkStates() {
+		HashMap<String, Boolean> networkStates = new HashMap<String, Boolean>();
+		ViewGroup networkList = (ViewGroup) findViewById(R.id.NetworkList);
+		for (int i = 0; i < networkList.getChildCount(); i++) {
+			ToggleButton button = (ToggleButton) networkList.getChildAt(i);
+			networkStates.put(button.getText().toString(), button.isChecked());
+		}
+		return networkStates;
+	}
+
+	private void setupSharingLayout(Bundle savedInstanceState) {
+		developerMessage = (TextView) findViewById(R.id.DeveloperMessage);
 		Intent intent = getIntent();
 		if (intent != null) {
 			if (intent.getStringExtra("developerMessage") != null) {
@@ -100,25 +140,14 @@ public class PSSharing extends Activity {
 			}
 		}
 
-		publishButton = (Button) findViewById(R.id.publishbutton);
+		publishButton = (Button) findViewById(R.id.PublishButton);
 		publishButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				publish();
 			}
 		});
-		userMessage = (EditText) findViewById(R.id.message);
-	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		if (Server.getInstance().getState() == Server.STATE_INITIALIZED) {
-			boolean[] states = new boolean[networkButtons.length];
-			for (int i = 0; i < states.length; i++) {
-				states[i] = networkButtons[i].isChecked();
-			}
-			outState.putBooleanArray("networkButtonStates", states);
-			super.onSaveInstanceState(outState);
-		}
+		userMessage = (EditText) findViewById(R.id.UserMessage);
 	}
 
 	private void setupNetworkCheckboxes(Bundle savedInstanceState) {
@@ -128,18 +157,51 @@ public class PSSharing extends Activity {
 			mHandler.removeCallbacks(mtt);
 			mHandler.postDelayed(mtt, 100);
 		} else {
-			checkboxes();
-			preloadSmallNetworkImages();
+			String [] networkNames = Server.getInstance().getKnownNetworks();
+			ImageCache.getInstance().preloadSmallNetworkIcons(networkNames);
+			setupNetworkView();
 		}
 
 		if (savedInstanceState != null) {
-			boolean[] states = savedInstanceState.getBooleanArray("networkButtonStates");
-			if (states != null) {
-				for (int i = 0; i < states.length; i++) {
-					networkButtons[i].setChecked(states[i]);
-				}
+			loadNetworkListFromState(savedInstanceState);
+		}
+	}
+	
+	private void setupNetworkView() {
+		ImageCache.getInstance().loadDrawable(Server.getInstance().getIconUrl(), new ImageCallback() {
+			public void setDrawable(Drawable d) {
+				ImageView iv = (ImageView) findViewById(R.id.MainIcon);
+				iv.setImageDrawable(d);
+			}
+		});
+
+		if (Server.getInstance().getState() != Server.STATE_INITIALIZED) {
+			return;
+		}
+
+		LinearLayout ll = (LinearLayout) findViewById(R.id.SettingsLoadingContainer);
+		ll.setVisibility(View.GONE);
+		
+		GridView gridview = (GridView) findViewById(R.id.NetworkList);
+		gridview.setAdapter(new NetworkListAdapter(this));
+	}
+
+	@SuppressWarnings("unchecked")
+	private void loadNetworkListFromState(Bundle savedInstanceState) {
+		ViewGroup networkListView = (ViewGroup) findViewById(R.id.NetworkList);
+		
+		HashMap<String, Boolean> networkStates = null;
+		networkStates = (HashMap<String, Boolean>) savedInstanceState.getSerializable("networkButtonStates");
+		
+		if (networkStates != null) {
+			for (int i = 0; i < networkListView.getChildCount(); i++) {
+				ToggleButton button = (ToggleButton) networkListView.getChildAt(i);
+				Boolean checked = networkStates.get(button.getText().toString());
+				button.setChecked(checked);
 			}
 		}
+		
+		return;
 	}
 
 	/**
@@ -150,60 +212,16 @@ public class PSSharing extends Activity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		networkButtons[requestCode].setChecked(resultCode == RESULT_OK);
+		ViewGroup networkListView = (ViewGroup) findViewById(R.id.NetworkList);
+		ToggleButton button = (ToggleButton) networkListView.getChildAt(requestCode);
+		button.setChecked(resultCode == RESULT_OK);
+
 		// as soon as registering of any network fails, stop the process
 		if (resultCode != RESULT_OK)
 			return;
 
 		// publish is called again if another networks need to be authenticated
 		publish();
-	}
-
-	private void checkboxes() {
-		ImageCache.getInstance().loadDrawable(Server.getInstance().getIconUrl(), new ImageCallback() {
-			public void setDrawable(Drawable d) {
-				ImageView iv = (ImageView) findViewById(R.id.iconimg);
-				iv.setImageDrawable(d);
-			}
-		});
-
-		if (Server.getInstance().getState() != Server.STATE_INITIALIZED) {
-			return;
-		}
-
-		networkButtons = new ToggleButton[Server.getInstance().getKnownNetworks().length];
-		LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayout01);
-		ll.removeAllViews();
-		for (int i = 0; i < networkButtons.length; i++) {
-			networkButtons[i] = createButton(i);
-			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-			llp.setMargins(10, 10, 10, 10);
-			ll.addView(networkButtons[i], llp);
-		}
-	}
-
-	private ToggleButton createButton(int i) {
-		final ToggleButton tb = new ToggleButton(PSSharing.this);
-		tb.setPadding(0,10,0,15);
-		String networkName = Server.getInstance().getKnownNetworks()[i];
-		String imageUrl = Utils.buildImageUrl(networkName, Constants.LARGE_IMAGES);
-		tb.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.placeholder_button_icon, 0, 0);
-		
-		ImageCache.getInstance().loadDrawable(imageUrl, new ImageCallback() {
-			public void setDrawable(Drawable d) {
-				tb.setCompoundDrawablesWithIntrinsicBounds(null, d, null, null);
-			}
-		});
-
-		tb.setTextSize(11);
-		tb.setBackgroundResource(R.drawable.buttonstates);
-		tb.setTextOn(networkName);
-		tb.setTextOff(networkName);
-		tb.setTextColor(Color.WHITE);
-		tb.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-		tb.setChecked(Server.getInstance().isNetworkAuthenticated(networkName));
-
-		return tb;
 	}
 
 	/**
@@ -233,9 +251,11 @@ public class PSSharing extends Activity {
 	}
 
 	private String[] selectedNetworks() {
+		GridView gridview = (GridView) findViewById(R.id.NetworkList);
 		ArrayList<String> selectedNetworks = new ArrayList<String>();
 		for (int i = 0; i < Server.getInstance().getKnownNetworks().length; i++) {
-			if (networkButtons[i].isChecked()) {
+			ToggleButton button = (ToggleButton) gridview.getChildAt(i);
+			if (button.isChecked()) {
 				selectedNetworks.add(Server.getInstance().getKnownNetworks()[i]);
 			}
 		}
@@ -251,32 +271,9 @@ public class PSSharing extends Activity {
 		}
 		return true;
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, 0, 0, R.string.settings).setIcon(R.drawable.settings);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (Server.getInstance().getState() == Server.STATE_INITIALIZED) {
-			startActivity(new Intent(PSSharing.this, PSSettings.class));
-		} else {
-			Toast.makeText(PSSharing.this, R.string.waitforsettings, Toast.LENGTH_SHORT).show();
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	private void preloadSmallNetworkImages() {
-		for (String networkName : Server.getInstance().getKnownNetworks()) {
-			String networkUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
-			ImageCache.getInstance().preloadDrawable(networkUrl);
-		}
-	}
 	
 	private void showConnectionErrorMessage() {
-		LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayout02);
+		LinearLayout ll = (LinearLayout) findViewById(R.id.SettingsLoadingContainer);
 		ll.removeAllViews();
 		TextView tv = new TextView(PSSharing.this);
 		tv.setText(R.string.nosettings);

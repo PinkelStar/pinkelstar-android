@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import com.pinkelstar.android.server.Constants;
+import com.pinkelstar.android.server.Utils;
 import com.pinkelstar.android.ui.tasks.ImageTask;
 
 public class ImageCache {
@@ -33,6 +35,13 @@ public class ImageCache {
 
 	public void preloadDrawable(String url) {
 		loadDrawable(url, null);
+	}
+	
+	public void preloadSmallNetworkIcons(String[] networkNames) {
+		for (String networkName : networkNames) {
+			String networkUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
+			preloadDrawable(networkUrl);
+		}
 	}
 
 	public void loadDrawable(String url, ImageCallback imageCallback) {

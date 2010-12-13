@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="wrap_content"
-	android:orientation="vertical" android:background="@drawable/bgtop">
-	<RelativeLayout android:id="@+id/RelativeLayout01"
-		android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView android:id="@+id/TextView01" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/settingstitle"
-			android:paddingBottom="10sp" android:paddingLeft="10sp"
-			android:paddingRight="10sp" android:paddingTop="50sp"></TextView>
-		<ImageView android:id="@+id/ImageView02" android:src="@drawable/topbar"
-			android:layout_height="wrap_content" android:scaleType="fitXY"
-			android:layout_width="fill_parent"></ImageView>
-		<ImageView android:id="@+id/ImageView01"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:src="@drawable/pinkelstar" android:layout_alignParentRight="true"></ImageView>
+<RelativeLayout	xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:orientation="vertical" 
+				android:background="@drawable/bgtop">
 		
-	</RelativeLayout>
-</LinearLayout>
+	<TextView 	android:id="@+id/SectionTitleText" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="@string/settingstitle"
+				android:paddingBottom="10sp" 
+				android:paddingLeft="10sp"
+				android:paddingRight="10sp" 
+				android:paddingTop="50sp" />
+
+	<ImageView 	android:id="@+id/TopbarImage" 
+				android:src="@drawable/topbar"
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+				android:scaleType="fitXY" />
+
+	<ImageView 	android:id="@+id/PinkelStarIcon"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				android:layout_alignParentRight="true"
+				android:src="@drawable/pinkelstar" />
+
+	<LinearLayout 	android:id="@+id/NetworkList"
+					android:layout_below="@id/SectionTitleText"
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:orientation="vertical" />
+
+</RelativeLayout>

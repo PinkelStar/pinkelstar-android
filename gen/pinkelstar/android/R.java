@@ -56,30 +56,32 @@ public final class R {
         public static final int unselected_button_bg2=0x7f02002a;
     }
     public static final class id {
-        public static final int BottomPanel=0x7f060005;
-        public static final int GridView01=0x7f060007;
-        public static final int ImageView01=0x7f060003;
-        public static final int ImageView02=0x7f060002;
-        public static final int ImageView03=0x7f060013;
-        public static final int LinearLayout01=0x7f060008;
-        public static final int LinearLayout02=0x7f060009;
-        public static final int ProgressBar01=0x7f06000a;
-        public static final int RelativeLayout01=0x7f060000;
-        public static final int TextView01=0x7f060001;
-        public static final int TextView02=0x7f06000b;
-        public static final int TextView03=0x7f060012;
-        public static final int TextView04=0x7f060006;
-        public static final int TopPanel=0x7f06000d;
-        public static final int iconimg=0x7f06000e;
-        public static final int iconmsg=0x7f060010;
-        public static final int iconshadow=0x7f06000f;
-        public static final int message=0x7f060011;
-        public static final int publishbutton=0x7f060004;
-        public static final int topframe=0x7f06000c;
+        public static final int ArrowDivider=0x7f060010;
+        public static final int DeveloperMessage=0x7f06000b;
+        public static final int LoadingMessage=0x7f060014;
+        public static final int LoadingProgressBar=0x7f060013;
+        public static final int MainIcon=0x7f060009;
+        public static final int MainIconShadow=0x7f06000a;
+        public static final int NetworkButton=0x7f060002;
+        public static final int NetworkIcon=0x7f060000;
+        public static final int NetworkList=0x7f060006;
+        public static final int NetworkName=0x7f060001;
+        public static final int NetworkSelectionsSection=0x7f06000f;
+        public static final int PinkelStarIcon=0x7f060005;
+        public static final int PublishButton=0x7f06000e;
+        public static final int PublishSection=0x7f06000d;
+        public static final int SectionTitleText=0x7f060003;
+        public static final int SelectionHint=0x7f060011;
+        public static final int SettingsLoadingContainer=0x7f060012;
+        public static final int TopBar=0x7f060008;
+        public static final int TopSection=0x7f060007;
+        public static final int TopbarImage=0x7f060004;
+        public static final int UserMessage=0x7f06000c;
     }
     public static final class layout {
-        public static final int pssettings=0x7f030000;
-        public static final int pssharing=0x7f030001;
+        public static final int psnetworklistitem=0x7f030000;
+        public static final int pssettings=0x7f030001;
+        public static final int pssharing=0x7f030002;
     }
     public static final class string {
         public static final int couldnotpost=0x7f050007;

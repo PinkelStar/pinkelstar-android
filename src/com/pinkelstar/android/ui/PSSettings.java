@@ -44,13 +44,12 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -67,11 +66,14 @@ public class PSSettings extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setupNetworkSelectors();
-
-	    // Run in a 32-bit window, which improves the appearance of some artwork in the  UI 
+		
+		setContentView(R.layout.pssettings);
+		
+		// Run in a 32-bit window, which improves the appearance of some artwork in the  UI 
         Window window = getWindow();
 	    window.setFormat(PixelFormat.RGBA_8888);
+	    
+		setupNetworkSelectors();
 	}
 
 	/**
@@ -83,32 +85,27 @@ public class PSSettings extends Activity {
 		setupNetworkSelectors();
 	}
 
-	void setupNetworkSelectors() {
-		LayoutInflater li = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-		LinearLayout ll = (LinearLayout) li.inflate(R.layout.pssettings, null);
-
+	private void setupNetworkSelectors() {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.NetworkList);
+		ll.removeAllViews();
 		for (String networkName : Server.getInstance().getKnownNetworks()) {
-			RelativeLayout rl = addNetworkSelector(networkName);
-			ll.addView(rl, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			ll.addView(addNetworkSelector(networkName));
 		}
-
-		setContentView(ll);
 	}
 
-	
-	RelativeLayout addNetworkSelector(String networkName) {
-		RelativeLayout rl = new RelativeLayout(PSSettings.this);
-		rl.setPadding(10, 10, 10, 10);
+	private ViewGroup addNetworkSelector(String networkName) {
+		LayoutInflater inflater = getLayoutInflater();
+		ViewGroup vg = (ViewGroup) inflater.inflate(R.layout.psnetworklistitem, null);
 		
-		createNetworkIcon(networkName, rl);
-		createNetworkTitle(networkName, rl);
-		createNetworkButton(networkName, rl);
+		createNetworkIcon(networkName, vg);
+		createNetworkTitle(networkName, vg);
+		createNetworkButton(networkName, vg);
 
-		return rl;
+		return vg;
 	}
 
-	private void createNetworkIcon(String networkName, RelativeLayout rl) {
-		final ImageView iv = new ImageView(PSSettings.this);
+	private void createNetworkIcon(String networkName, ViewGroup vg) {
+		final ImageView iv = (ImageView) vg.findViewById(R.id.NetworkIcon);
 		String imageUrl = Utils.buildImageUrl(networkName, Constants.SMALL_IMAGES);
 		iv.setImageDrawable(getResources().getDrawable(R.drawable.small_placeholder_button_icon));
 
@@ -117,26 +114,16 @@ public class PSSettings extends Activity {
 				iv.setImageDrawable(d);
 			}
 		});
-
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-		rlp.addRule(RelativeLayout.CENTER_VERTICAL);
-		rl.addView(iv, rlp);
 	}
 
-	private void createNetworkTitle(String networkName, RelativeLayout rl) {
-		TextView tv = new TextView(PSSettings.this);
+	private void createNetworkTitle(String networkName, ViewGroup vg) {
+		TextView tv = (TextView) vg.findViewById(R.id.NetworkName);
 		tv.setText(networkName);
-
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-		rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
-		rl.addView(tv, rlp);
 	}
 
-	private void createNetworkButton(final String networkName, RelativeLayout rl) {
-		ToggleButton tb = new ToggleButton(PSSettings.this);
+	private void createNetworkButton(final String networkName, ViewGroup vg) {
+		ToggleButton tb = (ToggleButton) vg.findViewById(R.id.NetworkButton);
 
-		tb.setButtonDrawable(R.drawable.togglebuttons);
-		tb.setBackgroundResource(R.drawable.nullimg);
 		tb.setChecked(Server.getInstance().isNetworkAuthenticated(networkName));
 
 		tb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -148,11 +135,6 @@ public class PSSettings extends Activity {
 				}
 			}
 		});
-
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(94, RelativeLayout.LayoutParams.WRAP_CONTENT);
-		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-		rlp.addRule(RelativeLayout.CENTER_VERTICAL);
-
-		rl.addView(tb, rlp);
 	}
+
 }

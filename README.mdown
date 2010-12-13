@@ -92,9 +92,9 @@ Steps for setting up your first PinkelStar enabled Android app :
 
     - add the pinkelstar activies *inside* the `application` tag
 
-            <activity android:name="com.pinkelstar.android.ui.PSSharing"></activity>
-            <activity android:name="com.pinkelstar.android.ui.PSSettings" android:screenOrientation="portrait"></activity>
-            <activity android:name="com.pinkelstar.android.server.NetworkAuth" android:theme="@android:style/Theme.Translucent"></activity>
+            <activity android:name="com.pinkelstar.android.ui.PSSharing" android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+            <activity android:name="com.pinkelstar.android.ui.PSSettings" android:screenOrientation="portrait" />
+            <activity android:name="com.pinkelstar.android.server.NetworkAuth" android:theme="@android:style/Theme.Translucent" />
 
     - add the permissions for accessing the internet and the device id *below* the application tag
 
